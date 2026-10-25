@@ -1,0 +1,49 @@
+# 来源: aigcbilibili\deliverables\刘竞峰-简历_含LABiliBili项目.docx
+# 类型: 简历  作者可信度: 本人定稿
+
+个人简历细心从每一个小细节开始。Personal resume
+个人简历
+细心从每一个小细节开始。
+Personal resume
+姓    名：刘竞峰民    族：汉电    话：***PHONE***邮    箱：***PHONE***@163.com就读院校：广东财经大学专    业：软件工程求职意向：AI 应用 / 后端开发基本信息
+姓    名：刘竞峰
+民    族：汉
+电    话：***PHONE***
+邮    箱：***PHONE***@163.com
+就读院校：广东财经大学
+专    业：软件工程
+求职意向：AI 应用 / 后端开发
+基本信息
+教育背景2023.09-2027.06          广东财经大学                     软件工程主修课程：设计模式、数据结构、操作系统、计算机组成原理、计算机网络、Java、Python、机器学习、区块链技术，Web开发技术
+教育背景
+2023.09-2027.06          广东财经大学                     软件工程
+主修课程：设计模式、数据结构、操作系统、计算机组成原理、计算机网络、Java、Python、机器学习、区块链技术，Web开发技术
+技术栈编程与后端： 熟悉 Python、Java、Flask、RESTful API、JWT、后台任务和异常处理，具备数据结构、算法及面向对象编程基础。大模型与 Agent： 熟悉通义千问调用、Prompt 工程、Function Calling、LangChain、工具注册与调用、多轮对话上下文管理。RAG 与存储： 熟悉文本切分、Embedding、向量检索及 ChromaDB；熟悉 MySQL、PostgreSQL、SQLite，具备业务存储与检索实践。前端与工程： 熟悉 Vue 3、Vite、Axios、SSE；具备图片/PDF/OCR 处理、前后端联调、日志排查、重试机制及 Docker 部署经验。项目经历AI 智能作文批改与学情咨询系统    核心开发成员项目背景： 针对人工批改耗时长、评分口径不一致、历史学情难以沉淀的问题，研发面向中学语文教学的 AI 应用，支持文本、图片和 PDF 输入，打通 OCR 识别、自动评分、人工复核、历史记录与个性化咨询。技术栈： Flask / Vue 3 / LangChain / 通义千问 / ChromaDB / SQLite / PostgreSQL / Docker项目成果：1. 架构设计与业务落地： 基于 Flask + LangChain 按接口、业务编排、RAG 检索、Agent 和模型工厂拆分职责，接入通义千问与 ChromaDB；支持议论文、记叙文、说明文 3 类体裁与多维评分，实现提交、批改、复核闭环。批改准确率为 90%+。2. 后台任务与服务容错： 将批改任务拆分为 queued、recognizing、grading、done、failed 5 种状态，通过后台线程执行 OCR 与模型调用，前端轮询进度；加入延迟初始化、重试与节流保护，应对网络抖动和冷启动。原简历记录的可用性为 99.5%，单次批改全流程 <60s。3. 流式缺字问题修复： 定位 AIMessageChunk 增量文本被误按累积全文裁剪的根因，按增量、完整消息、工具消息分别处理，增量直接透传并过滤工具正文；前端使用 TextDecoder、SSE 帧缓冲和响应式对象追加，修复随机缺字与无法实时显示 2 类问题。4. 双知识库与增量索引： 将写作方法、体裁指导、评分解读及常见问题切分为 400 字符、50 字符重叠的片段；历史批改按摘要、分析、问题、亮点 4 类单元建库。采用千问 Embedding + ChromaDB，教研/案例分别召回 Top-K=4/6，以 0.20 阈值过滤，按 MD5 和记录版本增量更新，支持教师修订结果进入咨询。5. 学情统计与 Agent 编排： 程序直接计算篇数、维度得分率及趋势，将真实学情、历史案例和教研资料主动注入 Prompt；咨询 Agent 仅保留 1 个知识检索工具，在资料不足时补充检索，移除批改工具以避免意图误用；短期记忆限制为 6 条消息、2,000 字符。6. 前端工作台与部署： 基于 Vue 3 + Vite 实现提交、进度、评分面板、原文画布、批注、润色对比与学情报告；统一处理文本、图片、PDF 3 种材料，支持单篇最多 3 页，接入 Axios、JWT 登录与 Fetch + SSE 流式咨询，完成导出功能及 Docker Compose + Nginx 部署配置。仿 B 站微服务视频平台（LABiliBili） 核心开发成员项目背景： 以 B 站核心业务为蓝本，自研覆盖视频投稿、弹幕互动、聚合搜索、实时私聊与 AIGC 创作的微服务系统，用真实业务链路验证服务治理、缓存与高并发读写能力，替代市面上千篇一律的单体商城 Demo。技术栈： Spring Cloud Alibaba / Nacos / Gateway / OpenFeign / Redis / RocketMQ / Elasticsearch / MinIO / MySQL / MyBatis-Plus / WebSocket / XXL-Job / Sleuth + Zipkin / Vue 3项目成果：1. 微服务拆分与网关鉴权： 按业务域拆为 gateway、user_center、video、search、chat、notice、common 共 7 个模块；Nacos 承担注册发现与配置中心，Gateway 收口 6 组路由与 WebSocket 转发，OpenFeign 完成跨服务调用；网关层以 JWT 长短双 Token（30min / 7d）替换 Session，鉴权无状态化。2. 分片上传与断点续传： 前端切片上传、后端按分片序号落 MinIO 并在分片齐全后 compose 合并，单文件上限由 100MB 提升至 150MB；断线后依据已传分片索引续传，大文件重复上传失败率下降约 80%；合并前用 JAVE 抽帧生成封面，省去独立截图服务。3. 搜索与数据同步： Elasticsearch 以 multi_match 跨视频名、UP 主、简介 3 字段检索，minScore 1.0 过滤叠加 more_like_this 推荐，检索响应稳定在 200ms 内；MySQL 到 ES 同步由 RocketMQ + XXL-Job 定时批量下发，布隆过滤器（误判率 0.01）预判文档存在性，冗余写请求减少约 90%，最终一致率达 99.9%。4. 缓存与实时通信： Redis 承接图形验证码、跨服务缓存与转码任务队列计数，热点视频详情接口耗时由约 300ms 降至 30ms；基于 WebSocket 维护 userId 与 sessionId 双映射实现一对一实时私聊，离线自动落库转通知，在线消息延迟低于 200ms。5. AIGC 创作链路： 打通讯飞星火 WebSocket API（HMAC-SHA256 鉴权），经事件监听 + 异步回调将大模型流式响应实时回推前端，支持文生文与文生图；自研按主题生成整套 PPT 文案能力，多轮会话按 12000 字符阈值滚动裁剪。6. 可观测性与工程化： 接入 Sleuth + Zipkin（采样率 100%）实现 7 个服务调用链可视化；Druid 统一数据源连接池、Knife4j 输出接口文档；Vue 3 + Pinia + Element Plus 落地 70+ 页面与组件，独立完成 22 张业务表设计与前后端分离交付。技能证书大学英语四/六级（CET-4/6），良好的听说读写能力，能够快速浏览英语专业文件及书籍。
+技术栈
+编程与后端： 熟悉 Python、Java、Flask、RESTful API、JWT、后台任务和异常处理，具备数据结构、算法及面向对象编程基础。
+大模型与 Agent： 熟悉通义千问调用、Prompt 工程、Function Calling、LangChain、工具注册与调用、多轮对话上下文管理。
+RAG 与存储： 熟悉文本切分、Embedding、向量检索及 ChromaDB；熟悉 MySQL、PostgreSQL、SQLite，具备业务存储与检索实践。
+前端与工程： 熟悉 Vue 3、Vite、Axios、SSE；具备图片/PDF/OCR 处理、前后端联调、日志排查、重试机制及 Docker 部署经验。
+项目经历
+AI 智能作文批改与学情咨询系统    核心开发成员
+项目背景： 针对人工批改耗时长、评分口径不一致、历史学情难以沉淀的问题，研发面向中学语文教学的 AI 应用，支持文本、图片和 PDF 输入，打通 OCR 识别、自动评分、人工复核、历史记录与个性化咨询。
+技术栈： Flask / Vue 3 / LangChain / 通义千问 / ChromaDB / SQLite / PostgreSQL / Docker
+项目成果：
+1. 架构设计与业务落地： 基于 Flask + LangChain 按接口、业务编排、RAG 检索、Agent 和模型工厂拆分职责，接入通义千问与 ChromaDB；支持议论文、记叙文、说明文 3 类体裁与多维评分，实现提交、批改、复核闭环。批改准确率为 90%+。
+2. 后台任务与服务容错： 将批改任务拆分为 queued、recognizing、grading、done、failed 5 种状态，通过后台线程执行 OCR 与模型调用，前端轮询进度；加入延迟初始化、重试与节流保护，应对网络抖动和冷启动。原简历记录的可用性为 99.5%，单次批改全流程 <60s。
+3. 流式缺字问题修复： 定位 AIMessageChunk 增量文本被误按累积全文裁剪的根因，按增量、完整消息、工具消息分别处理，增量直接透传并过滤工具正文；前端使用 TextDecoder、SSE 帧缓冲和响应式对象追加，修复随机缺字与无法实时显示 2 类问题。
+4. 双知识库与增量索引： 将写作方法、体裁指导、评分解读及常见问题切分为 400 字符、50 字符重叠的片段；历史批改按摘要、分析、问题、亮点 4 类单元建库。采用千问 Embedding + ChromaDB，教研/案例分别召回 Top-K=4/6，以 0.20 阈值过滤，按 MD5 和记录版本增量更新，支持教师修订结果进入咨询。
+5. 学情统计与 Agent 编排： 程序直接计算篇数、维度得分率及趋势，将真实学情、历史案例和教研资料主动注入 Prompt；咨询 Agent 仅保留 1 个知识检索工具，在资料不足时补充检索，移除批改工具以避免意图误用；短期记忆限制为 6 条消息、2,000 字符。
+6. 前端工作台与部署： 基于 Vue 3 + Vite 实现提交、进度、评分面板、原文画布、批注、润色对比与学情报告；统一处理文本、图片、PDF 3 种材料，支持单篇最多 3 页，接入 Axios、JWT 登录与 Fetch + SSE 流式咨询，完成导出功能及 Docker Compose + Nginx 部署配置。
+仿 B 站微服务视频平台（LABiliBili） 核心开发成员
+项目背景： 以 B 站核心业务为蓝本，自研覆盖视频投稿、弹幕互动、聚合搜索、实时私聊与 AIGC 创作的微服务系统，用真实业务链路验证服务治理、缓存与高并发读写能力，替代市面上千篇一律的单体商城 Demo。
+技术栈： Spring Cloud Alibaba / Nacos / Gateway / OpenFeign / Redis / RocketMQ / Elasticsearch / MinIO / MySQL / MyBatis-Plus / WebSocket / XXL-Job / Sleuth + Zipkin / Vue 3
+项目成果：
+1. 微服务拆分与网关鉴权： 按业务域拆为 gateway、user_center、video、search、chat、notice、common 共 7 个模块；Nacos 承担注册发现与配置中心，Gateway 收口 6 组路由与 WebSocket 转发，OpenFeign 完成跨服务调用；网关层以 JWT 长短双 Token（30min / 7d）替换 Session，鉴权无状态化。
+2. 分片上传与断点续传： 前端切片上传、后端按分片序号落 MinIO 并在分片齐全后 compose 合并，单文件上限由 100MB 提升至 150MB；断线后依据已传分片索引续传，大文件重复上传失败率下降约 80%；合并前用 JAVE 抽帧生成封面，省去独立截图服务。
+3. 搜索与数据同步： Elasticsearch 以 multi_match 跨视频名、UP 主、简介 3 字段检索，minScore 1.0 过滤叠加 more_like_this 推荐，检索响应稳定在 200ms 内；MySQL 到 ES 同步由 RocketMQ + XXL-Job 定时批量下发，布隆过滤器（误判率 0.01）预判文档存在性，冗余写请求减少约 90%，最终一致率达 99.9%。
+4. 缓存与实时通信： Redis 承接图形验证码、跨服务缓存与转码任务队列计数，热点视频详情接口耗时由约 300ms 降至 30ms；基于 WebSocket 维护 userId 与 sessionId 双映射实现一对一实时私聊，离线自动落库转通知，在线消息延迟低于 200ms。
+5. AIGC 创作链路： 打通讯飞星火 WebSocket API（HMAC-SHA256 鉴权），经事件监听 + 异步回调将大模型流式响应实时回推前端，支持文生文与文生图；自研按主题生成整套 PPT 文案能力，多轮会话按 12000 字符阈值滚动裁剪。
+6. 可观测性与工程化： 接入 Sleuth + Zipkin（采样率 100%）实现 7 个服务调用链可视化；Druid 统一数据源连接池、Knife4j 输出接口文档；Vue 3 + Pinia + Element Plus 落地 70+ 页面与组件，独立完成 22 张业务表设计与前后端分离交付。
+技能证书
+大学英语四/六级（CET-4/6），良好的听说读写能力，能够快速浏览英语专业文件及书籍。
