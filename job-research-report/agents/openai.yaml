@@ -1,0 +1,4 @@
+interface:
+  display_name: "岗位调研报告"
+  short_description: "通过联网搜索调研公司岗位信息并自动生成标准A4版式PDF报告"
+  default_prompt: "请调研 [公司名称] 的 [岗位名称] 岗位，并生成一份标准的A4 PDF调研报告。报告应包括公司概况、岗位职责、薪资范围、技能要求等内容。"
