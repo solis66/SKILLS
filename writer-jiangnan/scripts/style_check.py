@@ -78,6 +78,61 @@ TARGETS = {
 }
 
 
+
+ADDRESS_TERMS = ['师兄', '师姐', '师弟', '师妹', '学长', '学姐', '学弟', '学妹']
+PAIRS = [('师兄', '师弟'), ('师姐', '师妹'), ('学长', '学弟'), ('学姐', '学妹')]
+
+
+def address_report(text, names):
+    '''同人称呼体检：把每个称呼连同上下文列出来，让人工逐条确认说话人。'''
+    lines = text.replace('\r\n', '\n').split('\n')
+    hits = []
+    for i, ln in enumerate(lines, 1):
+        for term in ADDRESS_TERMS:
+            start = 0
+            while True:
+                j = ln.find(term, start)
+                if j < 0:
+                    break
+                lo, hi = max(0, j - 26), min(len(ln), j + len(term) + 26)
+                ctx = ln[lo:hi].strip()
+                hits.append((i, term, ctx))
+                start = j + len(term)
+    print(BAR)
+    print('同人核查 · 称呼扫描')
+    print(BAR)
+    if not hits:
+        print('  全文没有出现称呼词。')
+        print('  ⚠ 若这是同人，先确认：这些人之间本来就不叫称呼，还是漏了？')
+        print(BAR)
+        return
+    if names:
+        order = [n.strip() for n in names if n.strip() and n != '>']
+        if len(order) >= 2:
+            print('  届别（按 --canon 给出的先后，从高届到低届）：%s' % ' > '.join(order))
+            print('  推导规则：低届的叫高届的「师兄/师姐」，高届的叫低届的「师弟/师妹」。')
+            print('             「师兄/师弟」按对方性别选，不是按说话人性别选。')
+            print('             相邻两届成立，**不要跨届直接推**。')
+            print('')
+        missing = [n for n in order if n not in text]
+        if missing:
+            print('  ⚠ 以下人物在稿子里完全没有出现：%s' % '、'.join(missing))
+    print('  共 %d 处，逐条确认「说话人是谁、他叫谁、有没有把届别写反」：' % len(hits))
+    print('')
+    for i, term, ctx in hits:
+        print('   L%-4d [%s] %s' % (i, term, ctx))
+    print('')
+    for a, b in PAIRS:
+        for i, ln in enumerate(lines, 1):
+            if a in ln and b in ln:
+                print('   ⚠ L%d 同一段里同时出现「%s」和「%s」，先确认是不是写反了。' % (i, a, b))
+    print(BAR)
+    print('  手工必查：')
+    print('   1. 每一格的称呼都有原作依据（不是推出来的）')
+    print('   2. 群像场景里，配角与配角之间的称呼也核过')
+    print('   3. 专有名词逐字核对（不是「差不多」）')
+    print('   4. 这个时间点上，谁还不知道真相')
+    print(BAR)
 def read_text(path):
     raw = open(path, 'rb').read()
     for enc in ('utf-8-sig', 'utf-8', 'gb18030', 'utf-16'):
@@ -200,6 +255,7 @@ def report(m, mode):
     else:
         print('形状全部落在目标区间。')
         print('下一步：手工过 SKILL.md §6.1 的十六条清单。')
+        print('      同人稿请加 --canon 人物名，再扫一遍称呼与届别。')
     print(BAR)
     return len(bad)
 
@@ -210,6 +266,8 @@ def main():
     ap.add_argument('--mode', default='b', choices=list(TARGETS.keys()),
                     help='a 校园 / b 第一人称 / c 都市奇幻 / d 史诗 / x 只看数字')
     ap.add_argument('--json', action='store_true', help='输出 JSON')
+    ap.add_argument('--canon', default='', metavar='NAMES',
+                    help='同人核查：逗号分隔的人物名，额外扫一遍称呼（例：楚子航,路明非,夏弥）')
     args = ap.parse_args()
 
     text = read_text(args.path)
@@ -218,6 +276,10 @@ def main():
     if args.json:
         print(json.dumps({'mode': args.mode, 'metrics': m}, ensure_ascii=False, indent=2))
         return 0
+
+    if args.canon:
+        names = [x.strip() for x in args.canon.replace('，', ',').split(',') if x.strip()]
+        address_report(text, names)
 
     return 0 if report(m, args.mode) == 0 else 0
 
